@@ -1,10 +1,10 @@
 const eslint = require('eslint')
-const rule = require('./tree-shakeable-imports')
+const rule = require('./no-importing-styles')
 
 const ruleTester = new eslint.RuleTester({
   parserOptions: { sourceType: 'module' }
 })
-ruleTester.run('tree-shakeable-imports', rule, {
+ruleTester.run('no-importing-styles', rule, {
   valid: [
     "import Button from '@material-ui/core/Button'",
     "import describeConformance from '@another/core/test-utils/describeConformance'",
@@ -15,20 +15,20 @@ ruleTester.run('tree-shakeable-imports', rule, {
   ],
   invalid: [
     {
-      code: "import { Button } from '@material-ui/core'",
+      code: "import { withStyles } from '@material-ui/styles'",
       errors: [
         {
           message:
-            "Only default exported imports are allowed here. Try import Button from '@material-ui/core/Button'."
+            "Don't import from @material-ui/styles. Use @material-ui/core/styles instead."
         }
       ]
     },
     {
-      code: "import { withStyles } from '@material-ui/core/styles'",
+      code: "import makeStyles from '@material-ui/styles/makeStyles'",
       errors: [
         {
           message:
-            "Only default exported imports are allowed here. Try import withStyles from '@material-ui/core/styles/withStyles'."
+            "Don't import from @material-ui/styles. Use @material-ui/core/styles instead."
         }
       ]
     }

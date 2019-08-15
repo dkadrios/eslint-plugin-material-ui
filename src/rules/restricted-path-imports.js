@@ -3,26 +3,27 @@
 module.exports = context => {
   return {
     ImportDeclaration(node) {
-      const { source } = node;
-      const folders = source.value.split('/');
+      const { source } = node
+      const folders = source.value.split('/')
       const shouldRestrictImportPath =
         folders[0] === '@material-ui' &&
         // test-utils are fine. it doesn't matter whether we use cjs or esm since they're not deployed to the web
-        !source.value.startsWith('@material-ui/core/test-utils');
+        !source.value.startsWith('@material-ui/core/test-utils') &&
+        !source.value.startsWith('@material-ui/core/styles')
       if (!shouldRestrictImportPath) {
-        return;
+        return
       }
 
       // @namespace/packageName is first level
-      const level = source.value.split('/').length - 1;
+      const level = source.value.split('/').length - 1
 
       if (level > 2) {
-        const preferredImport = folders.slice(0, 3).join('/');
+        const preferredImport = folders.slice(0, 3).join('/')
         context.report({
           node,
-          message: `Only second level path imports are allowed. Prefer to import from '${preferredImport}'.`,
-        });
+          message: `Only second level path imports are allowed. Prefer to import from '${preferredImport}'.`
+        })
       }
-    },
-  };
-};
+    }
+  }
+}
