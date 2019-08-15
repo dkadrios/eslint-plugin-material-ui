@@ -8,6 +8,9 @@ ruleTester.run('tree-shakeable-imports', rule, {
   valid: [
     "import Button from '@material-ui/core/Button'",
     "import describeConformance from '@another/core/test-utils/describeConformance'",
+    "import makeStyles from '@material-ui/core/styles/makeStyles'",
+    "import CssBaseline from '@material-ui/core/CssBaseline'",
+    "import { Titled } from 'react-titled'",
     "import makeStyles from '@material-ui/core/styles/makeStyles'"
   ],
   invalid: [

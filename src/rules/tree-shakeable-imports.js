@@ -19,7 +19,6 @@ module.exports = context => {
         if (shouldRestrictImportPathLength) {
           // @namespace/packageName is first level
           const level = source.value.split('/').length - 1
-          console.log(folders)
 
           if (level > 2) {
             const preferredImport = folders.slice(0, 3).join('/')
@@ -37,13 +36,18 @@ module.exports = context => {
           }
         }
 
-        if (hasPunctuator(node, '{')) {
+        if (hasPunctuator(node, '{') && hasPunctuator(node, '}')) {
+          // console.log(node.parent)
+
           const preferredImport = source.value
-          const moduleName = node.specifiers[0].imported.name
-          context.report({
-            node,
-            message: `Only default exported imports are allowed here. Try import ${moduleName} from '${preferredImport}/${moduleName}'.`
-          })
+
+          if (node.specifiers.length && node.specifiers[0].imported) {
+            const moduleName = node.specifiers[0].imported.name
+            context.report({
+              node,
+              message: `Only default exported imports are allowed here. Try import ${moduleName} from '${preferredImport}/${moduleName}'.`
+            })
+          }
         }
       }
     }
