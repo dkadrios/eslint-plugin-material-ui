@@ -28,6 +28,7 @@ module.exports = {
               message: `Only default exported imports are allowed here. Try import ${moduleName} from '${preferredImport}/${moduleName}'.`,
               fix: fixer =>
                 fixer.replaceText(
+                  node,
                   `import ${moduleName} from '${preferredImport}/${moduleName}'`
                 )
             })

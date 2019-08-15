@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-material-ui-dkadrios",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "private": false,
   "description": "Custom eslint rules for Material-UI.",
   "main": "src/index.js",
