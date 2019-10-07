@@ -5,5 +5,6 @@ module.exports.rules = {
   'no-hardcoded-labels': require('./rules/no-hardcoded-labels'),
   'restricted-path-imports': require('./rules/restricted-path-imports'),
   'tree-shakeable-imports': require('./rules/tree-shakeable-imports'),
-  'no-importing-styles': require('./rules/no-importing-styles')
+  'no-importing-styles': require('./rules/no-importing-styles'),
+  'no-importing-act': require('./rules/no-importing-act')
 }
