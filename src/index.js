@@ -8,4 +8,5 @@ module.exports.rules = {
   'no-styled-from-core': require('./rules/no-styled-from-core'),
   'restricted-path-imports': require('./rules/restricted-path-imports'),
   'tree-shakeable-imports': require('./rules/tree-shakeable-imports'),
+  'import-alias-index': require('./rules/import-alias-index'),
 }
