@@ -1,37 +1,36 @@
-const knownAliases = [
-  '@config',
-  '@data',
-  '@mocks',
-  '@questions',
-  '@reducers',
-  '@reviews',
-  'core',
-  'fp',
-  'hoc',
-  'hooks',
-  'images',
-  'locale',
-  'projections',
-  'reducers',
-  'routing',
-  'sagas',
-  'selectors',
-  'styles',
-  'views',
-]
-
 module.exports = {
   meta: {
     docs: {},
     fixable: 'code',
-    schema: [],
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          aliases: {
+            type: 'array',
+            items: {
+              oneOf: [
+                {
+                  type: 'string',
+                },
+              ],
+            },
+          },
+        },
+      },
+    ],
   },
 
   create: (context) => ({
     ImportDeclaration(node) {
+      console.log(context.options[0])
+      const options = context.options[0] || {}
+      const aliases = options.aliases || []
       const { source, specifiers } = node
 
-      if (knownAliases.includes(source.value)) {
+      const package = String(source.value).replace(/\//g, '')
+
+      if (aliases.includes(package)) {
         context.report({
           node,
           message:
@@ -41,7 +40,7 @@ module.exports = {
               // Importing the module default
               return fixer.replaceText(
                 node,
-                `import ${specifiers[0].local.name} from ${source.value}/index`
+                `import ${specifiers[0].local.name} from ${package}/index`
               )
             } else {
               // Using one or more named imports
@@ -54,7 +53,7 @@ module.exports = {
                 })
               return fixer.replaceText(
                 node,
-                `import { ${items.join(', ')} } from ${source.value}/index`
+                `import { ${items.join(', ')} } from ${package}/index`
               )
             }
           },
