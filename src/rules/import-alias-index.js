@@ -40,7 +40,7 @@ module.exports = {
               // Importing the module default
               return fixer.replaceText(
                 node,
-                `import ${specifiers[0].local.name} from ${package}/index`
+                `import ${specifiers[0].local.name} from '${package}/index'`
               )
             } else {
               // Using one or more named imports
@@ -53,7 +53,7 @@ module.exports = {
                 })
               return fixer.replaceText(
                 node,
-                `import { ${items.join(', ')} } from ${package}/index`
+                `import { ${items.join(', ')} } from '${package}/index'`
               )
             }
           },
