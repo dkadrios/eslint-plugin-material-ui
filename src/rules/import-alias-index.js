@@ -23,7 +23,6 @@ module.exports = {
 
   create: (context) => ({
     ImportDeclaration(node) {
-      console.log(context.options[0])
       const options = context.options[0] || {}
       const aliases = options.aliases || []
       const { source, specifiers } = node
