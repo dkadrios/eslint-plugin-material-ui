@@ -28,6 +28,17 @@ module.exports = {
             return
           }
 
+          if (
+            source.value === '@material-ui/core/styles' &&
+            specifiers[0].imported.name === 'ThemeProvider'
+          ) {
+            return
+          }
+
+          if (source.value === '@material-ui/pickers') {
+            return
+          }
+
           if (node.specifiers.length && node.specifiers[0].imported) {
             const moduleName = node.specifiers[0].imported.name
             context.report({

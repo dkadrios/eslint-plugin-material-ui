@@ -13,6 +13,9 @@ ruleTester.run('tree-shakeable-imports', rule, {
     "import { Titled } from 'react-titled'",
     "import makeStyles from '@material-ui/core/styles/makeStyles'",
     "import { styled } from '@material-ui/core'",
+    "import { MuiPickersUtilsProvider } from '@material-ui/pickers'",
+    "import { DatePicker } from '@material-ui/pickers'",
+    "import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'",
   ],
   invalid: [
     {
